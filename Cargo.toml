@@ -4,3 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+git2 = "0.19"
+anyhow = "1.0"
+globset = "0.4"
+walkdir = "2"
+tempdir = "0.3"
+regex = "1.10"
+chrono = "0.4"
+scopeguard = "1.2"
+sha1_smol = "1.0"
+

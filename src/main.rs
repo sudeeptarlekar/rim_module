@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use anyhow::Context;
 use anyhow::Result;
 use git2::Repository;
@@ -8,5 +10,9 @@ fn main() -> Result<()> {
     println!("{:?}", repo.path());
     let head = repo.head()?.peel_to_commit()?.id();
     println!("{head}");
+    Ok(())
+}
+
+fn fetch_remotes(repo: &Repository, ssh_key: Option<&Path>) -> Result<()> {
     Ok(())
 }

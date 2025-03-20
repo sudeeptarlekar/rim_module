@@ -16,3 +16,14 @@ fn main() -> Result<()> {
 fn fetch_remotes(repo: &Repository, ssh_key: Option<&Path>) -> Result<()> {
     Ok(())
 }
+
+fn fetch_current_branch(repo: &Repository) -> Result<String> {
+    let branches = repo
+        .branches(Some(git2::BranchType::Local))?
+        .filter_map(Result::ok)
+        .filter(|(_branch, branch_type)| branch_type == &git2::BranchType::Local)
+        .map(|(branch, _bt)| branch)
+        .collect::<Vec<git2::Branch>>();
+
+    Ok(String::default())
+}

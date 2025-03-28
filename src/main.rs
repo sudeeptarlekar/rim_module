@@ -13,6 +13,14 @@ fn main() -> Result<()> {
     Ok(())
 }
 
+/// Just to fetch the remotes
+/// Ftches all remotes to the local but do not update the local branch
 fn fetch_remotes(repo: &Repository, ssh_key: Option<&Path>) -> Result<()> {
+    let mut fetch_options = git2::FetchOptions::new();
+    let mut cbs = git2::RemoteCallbacks::new();
+    cbs.credentials(move |_url, username, _at| {
+        git2::Cred::ssh_key(username.unwrap(), None, &Path::new(""), None)
+    });
+    fetch_options.remote_callbacks(cbs);
     Ok(())
 }

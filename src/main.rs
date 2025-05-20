@@ -13,7 +13,17 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-fn fetch_remotes(repo: &Repository, ssh_key: Option<&Path>) -> Result<()> {
+fn fetch_remotes(repo: &Repository, ssh_key: &Path) -> Result<()> {
+    let mut cbs = git2::RemoteCallbacks::new();
+
+    cbs.credentials(|_url, username_from_url, _allowed_types| {
+        git2::Cred::ssh_key(username_from_url.unwrap_or("git"), None, ssh_key, None)
+    });
+    let mut fetch_options = git2::FetchOptions::new();
+    fetch_options.remote_callbacks(cbs);
+
+    let mut remote = repo.find_remote("origin")?;
+    remote.fetch(&[] as &[&str], Some(&mut fetch_options), None)?;
     Ok(())
 }
 
@@ -26,4 +36,8 @@ fn fetch_current_branch(repo: &Repository) -> Result<String> {
         .collect::<Vec<git2::Branch>>();
 
     Ok(String::default())
+}
+
+fn for_durty_test() {
+    println!("Should create a conflict");
 }

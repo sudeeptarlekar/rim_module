@@ -5,6 +5,7 @@ use anyhow::Result;
 use git2::Repository;
 
 fn main() -> Result<()> {
+    // Some conflicting change
     let repo = Repository::open(".").context("Current working directory is not Git Directory")?;
 
     println!("{:?}", repo.path());

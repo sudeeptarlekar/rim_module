@@ -7,6 +7,7 @@ use git2::Repository;
 fn main() -> Result<()> {
     // Some conflicting change
     // LOL another conflicting change
+    // Temp change
     let repo = Repository::open(".").context("Current working directory is not Git Directory")?;
 
     println!("{:?}", repo.path());
